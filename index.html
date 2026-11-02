@@ -1,0 +1,1618 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Creaciones Scarlet | Haute Couture & Atelier</title>
+  <link rel="icon" type="image/jpeg" href="scarlet-logo.jpg">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Cormorant Garamond, Montserrat, Great Vibes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Montserrat:wght@200;300;400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Supabase JS Client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            noir: '#08080A',
+            obsidian: '#0E0F14',
+            onyx: '#15161D',
+            scarlet: '#E6007E',
+            scarletDark: '#A8005C',
+            scarletGlow: '#FF2E9D',
+            gold: '#D4AF37',
+            goldLight: '#F3E5AB',
+            champagne: '#ECE5D8',
+            platinum: '#F8F9FA',
+            mutedPlat: '#A0A2AB',
+          },
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'serif'],
+            sans: ['"Montserrat"', 'sans-serif'],
+            script: ['"Great Vibes"', 'cursive'],
+          },
+          boxShadow: {
+            'luxury': '0 20px 50px rgba(0, 0, 0, 0.7)',
+            'scarlet-glow': '0 0 35px rgba(230, 0, 126, 0.45)',
+            'gold-glow': '0 0 25px rgba(212, 175, 55, 0.25)',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #08080A;
+      color: #ECE5D8;
+      font-family: 'Montserrat', sans-serif;
+      overflow-x: hidden;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .gold-gradient-text {
+      background: linear-gradient(135deg, #FFF1D0 0%, #D4AF37 50%, #AA7C11 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .scarlet-gradient-text {
+      background: linear-gradient(135deg, #FFFFFF 0%, #FF2E9D 40%, #E6007E 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .glass-card {
+      background: rgba(18, 19, 25, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-card:hover {
+      border-color: rgba(230, 0, 126, 0.4);
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #08080A;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #252834;
+      border-radius: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #E6007E;
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Efecto 3D Card */
+    .card-3d-wrap {
+      perspective: 1200px;
+    }
+    .card-3d-inner {
+      transform-style: preserve-3d;
+      transition: transform 0.2s cubic-bezier(0.2, 0, 0.2, 1);
+    }
+  </style>
+</head>
+<body class="selection:bg-scarlet selection:text-white relative custom-scrollbar pb-16 md:pb-0">
+
+  <!-- TOP BANNER DE LUJO RESPONSIVE -->
+  <div class="bg-gradient-to-r from-noir via-onyx to-noir border-b border-white/5 py-2 px-3 sm:px-4 text-[11px] sm:text-xs text-center tracking-[0.15em] sm:tracking-[0.25em] uppercase text-mutedPlat flex flex-wrap items-center justify-center gap-2 sm:gap-6">
+    <span class="flex items-center gap-1.5 whitespace-nowrap">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-scarlet animate-ping"></span>
+      Taller de Costura y Alta Medida
+    </span>
+    <span class="hidden sm:inline-block text-white/20">|</span>
+    <span class="text-champagne whitespace-nowrap">Tasa: <strong class="text-white" id="exchangeRateBadge">Bs. 54.20 / USD</strong></span>
+    <span class="hidden lg:inline-block text-white/20">|</span>
+    <span class="hidden lg:inline-block text-gold">Asesoría VIP WhatsApp</span>
+  </div>
+
+  <!-- NAVEGACIÃ“N PRINCIPAL ADAPTATIVA -->
+  <header class="sticky top-0 z-40 bg-noir/90 backdrop-blur-md border-b border-white/5 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
+      
+      <!-- Menú Desktop Izquierdo -->
+      <nav class="hidden md:flex items-center gap-6 lg:gap-8 text-xs uppercase tracking-[0.18em] font-medium text-white/80">
+        <a href="#catalogo" class="hover:text-scarlet transition-colors">Colección</a>
+        <a href="#amedida" class="hover:text-scarlet transition-colors">Atelier</a>
+        <a href="#guia-medidas" class="hover:text-scarlet transition-colors">Guía de Tallas</a>
+        <a href="#cita" class="hover:text-scarlet transition-colors">Agendar Cita</a>
+      </nav>
+
+      <!-- Botón Hamburguesa Móvil (Visible solo en pantallas pequeñas) -->
+      <button onclick="toggleMobileMenu()" class="md:hidden p-2 text-white/80 hover:text-scarlet focus:outline-none" aria-label="Abrir Menú">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
+
+      <!-- Logo Oficial con imagen y branding comercial -->
+      <a href="#" class="group flex items-center gap-2.5 sm:gap-3">
+        <div class="relative w-9 h-9 sm:w-11 sm:h-11 rounded-full overflow-hidden border border-scarlet/60 p-0.5 shadow-scarlet-glow group-hover:scale-105 transition-transform duration-300 shrink-0">
+          <img src="scarlet-logo.jpg" alt="Creaciones Scarlet Logo" class="w-full h-full object-cover rounded-full">
+        </div>
+        <div class="flex flex-col text-left">
+          <span class="text-xl sm:text-2xl font-script text-scarlet leading-none drop-shadow-[0_0_10px_rgba(230,0,126,0.6)]">
+            Scarlet
+          </span>
+          <span class="text-[8px] sm:text-[9px] uppercase tracking-[0.3em] sm:tracking-[0.35em] text-white/70 font-sans -mt-0.5">
+            Creaciones • Haute Couture
+          </span>
+        </div>
+      </a>
+
+      <!-- Acciones Derechas -->
+      <div class="flex items-center gap-2 sm:gap-4">
+        <button onclick="openAppointmentModal()" class="hidden sm:inline-flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs uppercase tracking-[0.12em] px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-gold/40 text-goldLight hover:bg-gold/10 hover:border-gold transition-all">
+          <i data-lucide="scissors" class="w-3.5 h-3.5"></i>
+          <span class="hidden md:inline">Pedir Medidas</span>
+          <span class="md:hidden">Cita</span>
+        </button>
+
+        <button onclick="toggleCartDrawer()" class="relative p-2 sm:p-2.5 rounded-full bg-white/5 hover:bg-white/10 text-white transition-all flex items-center justify-center" aria-label="Ver Bolsa de Compras">
+          <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+          <span id="cartCountBadge" class="absolute -top-1 -right-1 bg-scarlet text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center shadow-scarlet-glow">
+            0
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Menú Móvil Desplegable -->
+    <div id="mobileMenu" class="md:hidden hidden bg-onyx/95 border-b border-white/10 px-6 py-5 space-y-4 backdrop-blur-xl transition-all">
+      <nav class="flex flex-col space-y-3 text-xs uppercase tracking-[0.2em] font-medium text-white/90">
+        <a href="#catalogo" onclick="toggleMobileMenu()" class="py-2 border-b border-white/5 hover:text-scarlet">Colección</a>
+        <a href="#amedida" onclick="toggleMobileMenu()" class="py-2 border-b border-white/5 hover:text-scarlet">Atelier a Medida</a>
+        <a href="#guia-medidas" onclick="toggleMobileMenu()" class="py-2 border-b border-white/5 hover:text-scarlet">Guía de Tallas</a>
+        <a href="#cita" onclick="toggleMobileMenu()" class="py-2 border-b border-white/5 hover:text-scarlet">Agendar Cita</a>
+      </nav>
+      <div class="pt-2 flex flex-col gap-2.5">
+        <button onclick="toggleMobileMenu(); openAppointmentModal()" class="w-full py-2.5 rounded border border-gold/50 text-gold text-xs uppercase tracking-wider flex items-center justify-center gap-2">
+          <i data-lucide="calendar" class="w-4 h-4"></i> Agendar Toma de Medidas
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION CON LOGO 3D INTERACTIVO RESPONSIVE -->
+  <section class="relative min-h-[85vh] sm:min-h-[90vh] flex items-center justify-center overflow-hidden px-4 sm:px-6 py-10 sm:py-16">
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-scarlet/15 via-noir to-noir pointer-events-none"></div>
+    <div class="absolute -top-40 right-10 w-72 sm:w-96 h-72 sm:h-96 bg-scarlet/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-10 left-10 w-60 sm:w-80 h-60 sm:h-80 bg-gold/5 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10">
+      
+      <!-- Lado Izquierdo: Copy Editorial -->
+      <div class="lg:col-span-7 text-center lg:text-left order-2 lg:order-1">
+        <div class="inline-flex items-center gap-2 sm:gap-3 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-[10px] sm:text-xs tracking-[0.25em] sm:tracking-[0.3em] uppercase text-champagne mb-5 sm:mb-6 backdrop-blur-sm">
+          <span class="w-2 h-2 rounded-full bg-gold"></span>
+          Colección Privée & Atelier 2026
+        </div>
+
+        <h1 class="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-serif tracking-tight font-light leading-tight sm:leading-none mb-4 sm:mb-6">
+          Ropa con Actitud, <br>
+          <span class="font-normal italic scarlet-gradient-text font-serif">hecha a tu perfecta medida.</span>
+        </h1>
+
+        <p class="text-mutedPlat text-xs sm:text-sm md:text-base font-light tracking-wide leading-relaxed mb-6 sm:mb-8 max-w-xl mx-auto lg:mx-0">
+          Diseños exclusivos de pret-à-porter y confección personalizada en nuestro taller de alta costura. 
+          Asesoría íntima por WhatsApp, acabados impecables y entrega a nivel nacional en Venezuela.
+        </p>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4 max-w-md mx-auto lg:mx-0">
+          <a href="#catalogo" class="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-scarlet hover:bg-scarletDark text-white text-xs uppercase tracking-[0.18em] font-semibold shadow-scarlet-glow transition-all duration-300 flex items-center justify-center gap-3 group">
+            <span>Explorar Colección</span>
+            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+          </a>
+          <a href="#amedida" class="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 bg-transparent hover:bg-white/5 border border-white/20 hover:border-gold text-champagne text-xs uppercase tracking-[0.18em] font-medium transition-all duration-300 flex items-center justify-center gap-3">
+            <i data-lucide="sparkles" class="w-4 h-4 text-gold"></i>
+            <span>Servicio Atelier</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Lado Derecho: EMBLEMA COMERCIAL 3D INTERACTIVO -->
+      <div class="lg:col-span-5 flex flex-col items-center justify-center order-1 lg:order-2">
+        <div id="hero3dCard" class="card-3d-wrap w-full max-w-[280px] sm:max-w-sm lg:max-w-md aspect-[4/5] relative select-none">
+          
+          <!-- Card Interior con Transform-Style 3D -->
+          <div id="hero3dInner" class="card-3d-inner w-full h-full relative rounded-2xl sm:rounded-3xl overflow-hidden glass-card shadow-2xl border border-white/15 p-2.5 sm:p-3 flex flex-col items-center justify-center group transition-transform duration-100 ease-out">
+            
+            <!-- Brillo especular dinámico -->
+            <div id="glareLayer" class="absolute inset-0 pointer-events-none rounded-2xl sm:rounded-3xl opacity-0 transition-opacity duration-300 z-30" style="background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.25) 0%, rgba(230,0,126,0.15) 40%, transparent 70%);"></div>
+
+            <!-- Resplandor Neón de Fondo -->
+            <div class="absolute inset-0 bg-gradient-to-tr from-scarlet/20 via-transparent to-gold/15 opacity-60 z-10 pointer-events-none"></div>
+            
+            <!-- Imagen Principal del Logo -->
+            <div class="relative w-full h-full rounded-xl sm:rounded-2xl overflow-hidden bg-noir flex items-center justify-center z-20 shadow-inner">
+              <img id="heroLogoImg" src="scarlet-logo.jpg" alt="Creaciones Scarlet Logo Oficial" class="w-full h-full object-contain filter drop-shadow-[0_15px_30px_rgba(230,0,126,0.5)] transform transition-transform duration-300 group-hover:scale-105">
+            </div>
+
+            <!-- Insignia Flotante en Relieve 3D -->
+            <div class="absolute bottom-3 sm:bottom-6 left-3 sm:left-6 right-3 sm:right-6 z-30 flex items-center justify-between px-3 sm:px-4 py-2 sm:py-2.5 bg-noir/85 backdrop-blur-md rounded-lg sm:rounded-xl border border-white/10 shadow-lg pointer-events-none" style="transform: translateZ(35px);">
+              <div class="flex items-center gap-1.5 sm:gap-2">
+                <span class="w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full bg-scarlet animate-ping"></span>
+                <span class="text-[9px] sm:text-[11px] uppercase tracking-wider sm:tracking-widest text-champagne font-medium">Emblema 3D</span>
+              </div>
+              <span class="text-[9px] sm:text-[10px] text-mutedPlat flex items-center gap-1">
+                <i data-lucide="sparkles" class="w-3 h-3 text-gold"></i> Interactivo
+              </span>
+            </div>
+
+          </div>
+
+          <div id="card3dShadow" class="absolute -bottom-4 sm:-bottom-6 inset-x-6 sm:inset-x-8 h-8 sm:h-10 bg-scarlet/20 rounded-full blur-2xl -z-10 transition-all duration-300"></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- BARRA DE CONFIANZA RESPONSIVE -->
+  <section class="border-y border-white/10 bg-obsidian/70 py-6 sm:py-8 px-4 sm:px-6">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 text-left">
+      <div class="flex items-center gap-3 sm:gap-3.5 p-3 sm:p-0 rounded-lg sm:rounded-none bg-white/[0.02] sm:bg-transparent">
+        <div class="p-2.5 sm:p-3 bg-white/5 border border-white/10 text-scarlet rounded shrink-0">
+          <i data-lucide="tape" class="w-4 sm:w-5 h-4 sm:h-5"></i>
+        </div>
+        <div>
+          <h4 class="text-xs uppercase tracking-wider text-white font-semibold">Toma de Medidas</h4>
+          <p class="text-[11px] text-mutedPlat">Ajuste milimétrico y personalizado</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 sm:gap-3.5 p-3 sm:p-0 rounded-lg sm:rounded-none bg-white/[0.02] sm:bg-transparent">
+        <div class="p-2.5 sm:p-3 bg-white/5 border border-white/10 text-gold rounded shrink-0">
+          <i data-lucide="message-circle" class="w-4 sm:w-5 h-4 sm:h-5"></i>
+        </div>
+        <div>
+          <h4 class="text-xs uppercase tracking-wider text-white font-semibold">Atención Personal VIP</h4>
+          <p class="text-[11px] text-mutedPlat">Asesoría directa vía WhatsApp</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 sm:gap-3.5 p-3 sm:p-0 rounded-lg sm:rounded-none bg-white/[0.02] sm:bg-transparent">
+        <div class="p-2.5 sm:p-3 bg-white/5 border border-white/10 text-champagne rounded shrink-0">
+          <i data-lucide="credit-card" class="w-4 sm:w-5 h-4 sm:h-5"></i>
+        </div>
+        <div>
+          <h4 class="text-xs uppercase tracking-wider text-white font-semibold">Múltiples Pagos</h4>
+          <p class="text-[11px] text-mutedPlat">Pago Móvil, Zelle, Transferencia</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 sm:gap-3.5 p-3 sm:p-0 rounded-lg sm:rounded-none bg-white/[0.02] sm:bg-transparent">
+        <div class="p-2.5 sm:p-3 bg-white/5 border border-white/10 text-scarletGlow rounded shrink-0">
+          <i data-lucide="truck" class="w-4 sm:w-5 h-4 sm:h-5"></i>
+        </div>
+        <div>
+          <h4 class="text-xs uppercase tracking-wider text-white font-semibold">Retiro & Envíos</h4>
+          <p class="text-[11px] text-mutedPlat">Pickup en tienda o delivery seguro</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÃ“N CATÃLOGO RESPONSIVE -->
+  <section id="catalogo" class="py-16 sm:py-24 px-4 sm:px-6 bg-noir relative border-t border-white/5">
+    <div class="max-w-7xl mx-auto">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-12 gap-5 sm:gap-6">
+        <div>
+          <span class="text-[10px] sm:text-xs uppercase tracking-[0.25em] text-scarlet block mb-1.5 sm:mb-2 font-medium">Pret-à-Porter & Atelier</span>
+          <h2 class="text-2xl sm:text-4xl md:text-5xl font-serif font-light text-white">Piezas Destacadas</h2>
+        </div>
+        
+        <!-- Filtros de Categoría con scroll horizontal táctil suave en móviles -->
+        <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1 text-xs uppercase tracking-[0.12em] -mx-4 px-4 sm:mx-0 sm:px-0" id="categoryFilterContainer">
+          <button onclick="filterProducts('all')" class="cat-btn active shrink-0 px-3.5 py-2 border border-scarlet bg-scarlet text-white">Todos</button>
+          <button onclick="filterProducts('mujer')" class="cat-btn shrink-0 px-3.5 py-2 border border-white/10 text-mutedPlat hover:text-white hover:border-white/30">Mujer Glam</button>
+          
+          
+          <button onclick="filterProducts('amedida')" class="cat-btn shrink-0 px-3.5 py-2 border border-white/10 text-mutedPlat hover:text-white hover:border-white/30">Confección Especial</button>
+        </div>
+      </div>
+
+      <!-- Grid de Productos Adaptativo (1 col en cel, 2 col en tablets, 3-4 en desktop) -->
+      <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 sm:gap-8">
+        <!-- Renderizado dinámico vía JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- SECCIÃ“N SERVICIO A MEDIDA RESPONSIVE -->
+  <section id="amedida" class="py-16 sm:py-24 px-4 sm:px-6 bg-obsidian relative border-t border-white/5 overflow-hidden">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
+        <span class="text-[10px] sm:text-xs uppercase tracking-[0.25em] text-gold block mb-2">Confección Exclusiva</span>
+        <h2 class="text-2xl sm:text-4xl md:text-5xl font-serif font-light text-white mb-3 sm:mb-4">El Proceso de Alta Medida</h2>
+        <p class="text-xs sm:text-sm text-mutedPlat leading-relaxed">
+          Cada cuerpo es un lienzo único. Creaciones Scarlet transforma telas selectas en prendas que se adaptan con gracia anatómica a ti.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 relative">
+        <div class="glass-card p-6 sm:p-8 relative flex flex-col justify-between group">
+          <span class="text-3xl sm:text-4xl font-serif text-white/10 font-bold mb-4 sm:mb-6 group-hover:text-scarlet transition-colors">01</span>
+          <div>
+            <h3 class="text-sm sm:text-base uppercase tracking-wider text-white font-medium mb-1.5 sm:mb-2">Inspiración y Cita</h3>
+            <p class="text-xs text-mutedPlat leading-relaxed">
+              Conversamos sobre tu ocasión especial, tipo de tela deseada, referencias visuales y diseño soñado.
+            </p>
+          </div>
+          <div class="mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-white/5 text-[11px] text-gold flex items-center gap-1">
+            <i data-lucide="check" class="w-3.5 h-3.5"></i> Vía WhatsApp / Taller
+          </div>
+        </div>
+
+        <div class="glass-card p-6 sm:p-8 relative flex flex-col justify-between group">
+          <span class="text-3xl sm:text-4xl font-serif text-white/10 font-bold mb-4 sm:mb-6 group-hover:text-scarlet transition-colors">02</span>
+          <div>
+            <h3 class="text-sm sm:text-base uppercase tracking-wider text-white font-medium mb-1.5 sm:mb-2">Toma de Medidas</h3>
+            <p class="text-xs text-mutedPlat leading-relaxed">
+              Toma presencial en nuestro atelier o guiada milímetro a milímetro en video privada con nuestra patronista.
+            </p>
+          </div>
+          <div class="mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-white/5 text-[11px] text-gold flex items-center gap-1">
+            <i data-lucide="check" class="w-3.5 h-3.5"></i> Patrón digitalizado
+          </div>
+        </div>
+
+        <div class="glass-card p-6 sm:p-8 relative flex flex-col justify-between group">
+          <span class="text-3xl sm:text-4xl font-serif text-white/10 font-bold mb-4 sm:mb-6 group-hover:text-scarlet transition-colors">03</span>
+          <div>
+            <h3 class="text-sm sm:text-base uppercase tracking-wider text-white font-medium mb-1.5 sm:mb-2">Corte & Primera Prueba</h3>
+            <p class="text-xs text-mutedPlat leading-relaxed">
+              Confección inicial en lienzo base o tejido seleccionado para calibrar caídas, pinzas y holguras.
+            </p>
+          </div>
+          <div class="mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-white/5 text-[11px] text-gold flex items-center gap-1">
+            <i data-lucide="check" class="w-3.5 h-3.5"></i> Ajustes de precisión
+          </div>
+        </div>
+
+        <div class="glass-card p-6 sm:p-8 relative flex flex-col justify-between group">
+          <span class="text-3xl sm:text-4xl font-serif text-white/10 font-bold mb-4 sm:mb-6 group-hover:text-scarlet transition-colors">04</span>
+          <div>
+            <h3 class="text-sm sm:text-base uppercase tracking-wider text-white font-medium mb-1.5 sm:mb-2">Acabado Haute Couture</h3>
+            <p class="text-xs text-mutedPlat leading-relaxed">
+              Planchado de alta gama, forrería fina y entrega impecable en funda protectora de la firma.
+            </p>
+          </div>
+          <div class="mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-white/5 text-[11px] text-gold flex items-center gap-1">
+            <i data-lucide="check" class="w-3.5 h-3.5"></i> Garantía de calce
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-10 sm:mt-14 text-center">
+        <button onclick="openAppointmentModal()" class="w-full sm:w-auto px-6 sm:px-8 py-3.5 bg-gradient-to-r from-scarlet to-scarletDark text-white text-xs uppercase tracking-[0.18em] font-semibold hover:shadow-scarlet-glow transition-all">
+          Reservar Asesoría de Costura
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- GUÍA DE MEDIDAS INTERACTIVA RESPONSIVE -->
+  <section id="guia-medidas" class="py-16 sm:py-24 px-4 sm:px-6 bg-noir border-t border-white/5">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-10 sm:mb-16">
+        <span class="text-[10px] sm:text-xs uppercase tracking-[0.25em] text-scarlet block mb-1.5 font-medium">Anatomía & Calce</span>
+        <h2 class="text-2xl sm:text-4xl md:text-5xl font-serif font-light text-white mb-3">Guía de Medidas y Tallas</h2>
+        <p class="text-xs sm:text-sm text-mutedPlat max-w-xl mx-auto">
+          Compara tus proporciones en centímetros o solicita la asistencia remota de nuestra analista de confección.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 items-start">
+        <div class="glass-card p-5 sm:p-6 flex flex-col items-center justify-center relative min-h-[320px] sm:min-h-[360px]">
+          <div class="text-center mb-4">
+            <span class="text-xs uppercase tracking-wider text-gold font-medium">Puntos Clave del Cuerpo</span>
+          </div>
+
+          <div class="relative w-44 sm:w-48 h-56 sm:h-64 border border-dashed border-white/20 rounded-full flex flex-col items-center justify-around py-4">
+            <button onclick="selectMeasurement('Busto')" class="px-3 py-1 bg-scarlet/20 hover:bg-scarlet border border-scarlet text-[11px] text-white rounded-full transition-all flex items-center gap-1 active:scale-95">
+              <span class="w-1.5 h-1.5 rounded-full bg-scarlet"></span> 1. Busto / Pecho
+            </button>
+            <button onclick="selectMeasurement('Cintura')" class="px-3 py-1 bg-gold/20 hover:bg-gold border border-gold text-[11px] text-white rounded-full transition-all flex items-center gap-1 active:scale-95">
+              <span class="w-1.5 h-1.5 rounded-full bg-gold"></span> 2. Cintura Natural
+            </button>
+            <button onclick="selectMeasurement('Cadera')" class="px-3 py-1 bg-scarletGlow/20 hover:bg-scarletGlow border border-scarletGlow text-[11px] text-white rounded-full transition-all flex items-center gap-1 active:scale-95">
+              <span class="w-1.5 h-1.5 rounded-full bg-scarletGlow"></span> 3. Cadera Alta & Baja
+            </button>
+          </div>
+
+          <div id="measureDetail" class="mt-4 p-3 bg-white/5 border border-white/10 rounded text-center w-full">
+            <span class="text-xs text-champagne block font-medium">Toca un punto anatómico</span>
+            <span class="text-[11px] text-mutedPlat">Aprende a medirte con precisión.</span>
+          </div>
+        </div>
+
+        <div class="md:col-span-2 glass-card p-5 sm:p-6 overflow-hidden">
+          <div class="flex items-center justify-between mb-4 pb-3 border-b border-white/10">
+            <h3 class="text-xs sm:text-sm uppercase tracking-widest text-white font-semibold">Tabla Estándar (cm)</h3>
+            <span class="text-[10px] sm:text-[11px] text-gold">Valores de referencia</span>
+          </div>
+          
+          <div class="overflow-x-auto custom-scrollbar">
+            <table class="w-full text-xs text-left min-w-[320px]">
+              <thead>
+                <tr class="text-mutedPlat border-b border-white/5 tracking-wider uppercase text-[10px]">
+                  <th class="py-2.5">Talla</th>
+                  <th class="py-2.5">Busto</th>
+                  <th class="py-2.5">Cintura</th>
+                  <th class="py-2.5">Cadera</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-white/5 text-white/90">
+                <tr>
+                  <td class="py-2.5 font-bold text-scarlet">XS</td>
+                  <td class="py-2.5">80 - 84 cm</td>
+                  <td class="py-2.5">60 - 64 cm</td>
+                  <td class="py-2.5">86 - 90 cm</td>
+                </tr>
+                <tr>
+                  <td class="py-2.5 font-bold text-scarlet">S</td>
+                  <td class="py-2.5">84 - 88 cm</td>
+                  <td class="py-2.5">64 - 68 cm</td>
+                  <td class="py-2.5">90 - 94 cm</td>
+                </tr>
+                <tr>
+                  <td class="py-2.5 font-bold text-scarlet">M</td>
+                  <td class="py-2.5">88 - 94 cm</td>
+                  <td class="py-2.5">68 - 74 cm</td>
+                  <td class="py-2.5">94 - 100 cm</td>
+                </tr>
+                <tr>
+                  <td class="py-2.5 font-bold text-scarlet">L</td>
+                  <td class="py-2.5">94 - 102 cm</td>
+                  <td class="py-2.5">74 - 82 cm</td>
+                  <td class="py-2.5">100 - 108 cm</td>
+                </tr>
+                <tr>
+                  <td class="py-2.5 font-bold text-gold">A Medida</td>
+                  <td class="py-2.5" colspan="3">Ajuste personalizado a cualquier silueta</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+            <span class="text-xs text-mutedPlat">¿Dudas con tu talla exacta?</span>
+            <a href="https://wa.me/584122820316?text=Hola%20Scarlet%2C%20necesito%20ayuda%20para%20confirmar%20mis%20medidas" target="_blank" class="text-xs uppercase tracking-wider text-scarlet hover:text-white flex items-center justify-center gap-1.5 transition-colors">
+              <i data-lucide="message-circle" class="w-4 h-4"></i> Asesoría de Medidas por WhatsApp &rarr;
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMULARIO DE RESERVA DE CITA RESPONSIVE -->
+  <section id="cita" class="py-16 sm:py-24 px-4 sm:px-6 bg-obsidian relative border-t border-white/5">
+    <div class="max-w-3xl mx-auto glass-card p-6 sm:p-10 md:p-12 relative overflow-hidden">
+      <div class="text-center mb-8 sm:mb-10">
+        <span class="text-[10px] sm:text-xs uppercase tracking-[0.25em] text-gold block mb-1.5 font-medium">Atención Presencial o Virtual</span>
+        <h2 class="text-2xl sm:text-4xl font-serif text-white font-light mb-2.5">Agendar Cita en el Atelier</h2>
+        <p class="text-xs text-mutedPlat leading-relaxed">
+          Reserva un espacio exclusivo con nuestra diseñadora principal para toma de medidas y selección de telas.
+        </p>
+      </div>
+
+      <form id="appointmentForm" onsubmit="handleAppointmentSubmit(event)" class="space-y-4 sm:space-y-5">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+          <div>
+            <label class="block text-xs uppercase tracking-wider text-mutedPlat mb-1.5">Nombre Completo *</label>
+            <input type="text" id="aptName" required placeholder="Ej. Valentina Mendoza" class="w-full bg-white/5 border border-white/10 px-3.5 sm:px-4 py-2.5 sm:py-3 text-xs text-white focus:outline-none focus:border-scarlet transition-colors">
+          </div>
+          <div>
+            <label class="block text-xs uppercase tracking-wider text-mutedPlat mb-1.5">Teléfono / WhatsApp *</label>
+            <input type="tel" id="aptPhone" required placeholder="Ej. 0414 1234567" class="w-full bg-white/5 border border-white/10 px-3.5 sm:px-4 py-2.5 sm:py-3 text-xs text-white focus:outline-none focus:border-scarlet transition-colors">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+          <div>
+            <label class="block text-xs uppercase tracking-wider text-mutedPlat mb-1.5">Tipo de Servicio *</label>
+            <select id="aptService" class="w-full bg-onyx border border-white/10 px-3.5 sm:px-4 py-2.5 sm:py-3 text-xs text-white focus:outline-none focus:border-scarlet transition-colors">
+              <option value="Vestido de Gala o Evento">Vestido de Fiesta / Gala / Graduación</option>
+              <option value="Prenda Casual a Medida">Conjunto Casual a Medida</option>
+              <option value="Confección Infantil Especial">Confección Niñas / Niños</option>
+              <option value="Ajustes y Arreglos de Alta Costura">Ajustes & Modificaciones Especiales</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs uppercase tracking-wider text-mutedPlat mb-1.5">Fecha Tentativa *</label>
+            <input type="date" id="aptDate" required class="w-full bg-white/5 border border-white/10 px-3.5 sm:px-4 py-2.5 sm:py-3 text-xs text-white focus:outline-none focus:border-scarlet transition-colors">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs uppercase tracking-wider text-mutedPlat mb-1.5">Detalles del Diseño o Consulta</label>
+          <textarea id="aptNotes" rows="3" placeholder="Cuéntanos sobre colores preferidos, ocasión, si tienes tela propia o buscas que la suministremos..." class="w-full bg-white/5 border border-white/10 px-3.5 sm:px-4 py-2.5 sm:py-3 text-xs text-white focus:outline-none focus:border-scarlet transition-colors"></textarea>
+        </div>
+
+        <button type="submit" class="w-full py-3.5 sm:py-4 bg-scarlet hover:bg-scarletDark text-white text-xs uppercase tracking-[0.2em] font-semibold transition-all shadow-scarlet-glow flex items-center justify-center gap-2">
+          <i data-lucide="calendar" class="w-4 h-4"></i> Confirmar Cita y Notificar por WhatsApp
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- MÃ‰TODOS DE PAGO Y LOGÍSTICA RESPONSIVE -->
+  <section class="py-14 sm:py-20 px-4 sm:px-6 bg-noir border-t border-white/5">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-8 sm:mb-12">
+        <span class="text-[10px] sm:text-xs uppercase tracking-[0.25em] text-mutedPlat block mb-1">Transparencia y Seguridad</span>
+        <h3 class="text-xl sm:text-2xl font-serif text-white font-light">Facilidades de Pago & Envíos</h3>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+        <div class="p-5 sm:p-6 bg-white/5 border border-white/10 rounded-lg sm:rounded-none">
+          <div class="text-gold mb-2.5 sm:mb-3"><i data-lucide="smartphone" class="w-5 sm:w-6 h-5 sm:h-6"></i></div>
+          <h4 class="text-xs uppercase tracking-wider text-white font-semibold mb-1">Pago Móvil</h4>
+          <p class="text-xs text-mutedPlat leading-relaxed">Banesco, Mercantil y Bancamiga. Conversión automática según la tasa del día.</p>
+        </div>
+        <div class="p-5 sm:p-6 bg-white/5 border border-white/10 rounded-lg sm:rounded-none">
+          <div class="text-scarlet mb-2.5 sm:mb-3"><i data-lucide="dollar-sign" class="w-5 sm:w-6 h-5 sm:h-6"></i></div>
+          <h4 class="text-xs uppercase tracking-wider text-white font-semibold mb-1">Zelle & Divisas</h4>
+          <p class="text-xs text-mutedPlat leading-relaxed">Pagos directos en USD vía Zelle o efectivo en dólares al retirar en atelier.</p>
+        </div>
+        <div class="p-5 sm:p-6 bg-white/5 border border-white/10 rounded-lg sm:rounded-none">
+          <div class="text-champagne mb-2.5 sm:mb-3"><i data-lucide="store" class="w-5 sm:w-6 h-5 sm:h-6"></i></div>
+          <h4 class="text-xs uppercase tracking-wider text-white font-semibold mb-1">Retiro en Taller</h4>
+          <p class="text-xs text-mutedPlat leading-relaxed">Pruébate tu prenda al instante en nuestro taller físico con cita previa.</p>
+        </div>
+        <div class="p-5 sm:p-6 bg-white/5 border border-white/10 rounded-lg sm:rounded-none">
+          <div class="text-goldLight mb-2.5 sm:mb-3"><i data-lucide="send" class="w-5 sm:w-6 h-5 sm:h-6"></i></div>
+          <h4 class="text-xs uppercase tracking-wider text-white font-semibold mb-1">Envíos Nacionales</h4>
+          <p class="text-xs text-mutedPlat leading-relaxed">Despachos asegurados a través de MRW, Tealca, Zoom o delivery metropolitano.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER DE LUJO RESPONSIVE -->
+  <footer class="bg-noir border-t border-white/10 py-12 sm:py-16 px-4 sm:px-6 text-xs text-mutedPlat">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 mb-10 sm:mb-12">
+      <!-- Columna 1: Marca -->
+      <div>
+        <div class="flex items-center gap-3 mb-3 sm:mb-4">
+          <img src="scarlet-logo.jpg" alt="Logo" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-scarlet/50">
+          <span class="text-2xl sm:text-3xl font-script text-scarlet drop-shadow-[0_0_8px_rgba(230,0,126,0.5)]">Scarlet</span>
+        </div>
+        <span class="text-[9px] sm:text-[10px] uppercase tracking-[0.25em] text-white/50 block mb-3">Creaciones • Atelier de Moda</span>
+        <p class="text-xs leading-relaxed text-mutedPlat">
+          Ropa con actitud y corte impecable en Venezuela. Prendas listas para usar y confección a medida que realzan tu identidad.
+        </p>
+      </div>
+
+      <!-- Columna 2: Navegación -->
+      <div>
+        <h5 class="text-xs uppercase tracking-widest text-white font-semibold mb-3 sm:mb-4">Explorar</h5>
+        <ul class="space-y-2 sm:space-y-2.5">
+          <li><a href="#catalogo" class="hover:text-scarlet transition-colors">Catálogo Completo</a></li>
+          <li><a href="#amedida" class="hover:text-scarlet transition-colors">Servicio Atelier a Medida</a></li>
+          <li><a href="#guia-medidas" class="hover:text-scarlet transition-colors">Guía Anatómica de Tallas</a></li>
+          <li><a href="#cita" class="hover:text-scarlet transition-colors">Reserva de Asesoría</a></li>
+        </ul>
+      </div>
+
+      <!-- Columna 3: Contacto Directo -->
+      <div>
+        <h5 class="text-xs uppercase tracking-widest text-white font-semibold mb-3 sm:mb-4">Atención & Ventas</h5>
+        <ul class="space-y-2 sm:space-y-2.5">
+          <li class="flex items-center gap-2">
+            <i data-lucide="phone" class="w-3.5 h-3.5 text-scarlet shrink-0"></i>
+            <span>+58 412-2820316</span>
+          </li>
+          <li class="flex items-center gap-2">
+            <i data-lucide="map-pin" class="w-3.5 h-3.5 text-scarlet shrink-0"></i>
+            <span>Atelier & Showroom, Venezuela</span>
+          </li>
+          <li class="flex items-center gap-2">
+            <i data-lucide="clock" class="w-3.5 h-3.5 text-scarlet shrink-0"></i>
+            <span>Lun - Sáb: 9:00 AM - 6:00 PM</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Columna 4: Compromiso -->
+      <div>
+        <h5 class="text-xs uppercase tracking-widest text-white font-semibold mb-3 sm:mb-4">Compromiso Scarlet</h5>
+        <p class="text-xs text-mutedPlat leading-relaxed mb-4">
+          Cada costura lleva el sello de minuciosidad artesanal. Si requieres algún ajuste fino en tus piezas a medida, cuentas con garantía de calce.
+        </p>
+        <div class="inline-block px-3 py-1 bg-scarlet/10 border border-scarlet/30 text-scarlet text-[11px] rounded">
+          Hecho a Mano con Pasión
+        </div>
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto pt-6 sm:pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 text-[10px] sm:text-[11px] text-center sm:text-left">
+      <p>&copy; 2026 Creaciones Scarlet. Todos los derechos reservados.</p>
+      <div class="flex gap-4 sm:gap-6">
+        <a href="#" class="hover:text-white transition-colors">Políticas de Confección</a>
+        <a href="#" class="hover:text-white transition-colors">Términos de Envío</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- BOTÃ“N FLOTANTE WHATSAPP VIP (Posicionado ergonómicamente) -->
+  <a href="https://wa.me/584122820316?text=Hola%20Scarlet%2C%20quisiera%20asesor%C3%ADa%20personalizada%20sobre%20sus%20prendas%20y%20confecci%C3%B3n" target="_blank" class="fixed bottom-20 sm:bottom-6 right-4 sm:right-6 z-40 p-3.5 sm:p-4 rounded-full bg-scarlet hover:bg-scarletDark text-white shadow-scarlet-glow flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 group" aria-label="Contactar por WhatsApp">
+    <i data-lucide="message-circle" class="w-5 sm:w-6 h-5 sm:h-6"></i>
+    <span class="max-w-0 overflow-hidden whitespace-nowrap group-hover:max-w-xs transition-all duration-500 text-xs font-semibold uppercase tracking-wider pl-0 group-hover:pl-2 hidden sm:inline">
+      Asesoría WhatsApp
+    </span>
+  </a>
+
+  <!-- BOTTOM BAR MÃ“VIL FIJA (Para acceso ultrarápido con el pulgar) -->
+  <div class="md:hidden fixed bottom-0 inset-x-0 z-40 bg-noir/95 border-t border-white/10 backdrop-blur-lg px-4 py-2.5 flex items-center justify-around text-[10px] uppercase tracking-wider text-mutedPlat">
+    <a href="#catalogo" class="flex flex-col items-center gap-1 hover:text-scarlet">
+      <i data-lucide="layout-grid" class="w-4 h-4 text-white"></i>
+      <span>Colección</span>
+    </a>
+    <a href="#amedida" class="flex flex-col items-center gap-1 hover:text-scarlet">
+      <i data-lucide="sparkles" class="w-4 h-4 text-gold"></i>
+      <span>Atelier</span>
+    </a>
+    <button onclick="openAppointmentModal()" class="flex flex-col items-center gap-1 hover:text-scarlet">
+      <i data-lucide="calendar" class="w-4 h-4 text-white"></i>
+      <span>Citas</span>
+    </button>
+    <button onclick="toggleCartDrawer()" class="flex flex-col items-center gap-1 text-scarlet relative">
+      <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+      <span>Bolsa (<span id="cartCountMobile">0</span>)</span>
+    </button>
+  </div>
+
+  <!-- DRAWER LATERAL: CARRITO & CHECKOUT RESPONSIVE -->
+  <div id="cartDrawer" class="fixed inset-0 z-50 pointer-events-none transition-all duration-300">
+    <div id="cartBackdrop" onclick="toggleCartDrawer()" class="absolute inset-0 bg-black/70 opacity-0 transition-opacity duration-300"></div>
+    <div id="cartPanel" class="absolute top-0 right-0 h-full w-full sm:max-w-md bg-onyx border-l border-white/10 shadow-luxury transform translate-x-full transition-transform duration-300 flex flex-col pointer-events-auto">
+      <div class="p-4 sm:p-6 border-b border-white/10 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <i data-lucide="shopping-bag" class="w-5 h-5 text-scarlet"></i>
+          <h3 class="text-xs sm:text-sm uppercase tracking-widest text-white font-semibold">Bolsa de Compras</h3>
+        </div>
+        <button onclick="toggleCartDrawer()" class="text-mutedPlat hover:text-white p-1">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div id="cartItemsList" class="flex-1 overflow-y-auto p-4 sm:p-6 space-y-3 sm:space-y-4 custom-scrollbar"></div>
+
+      <div class="p-4 sm:p-6 border-t border-white/10 bg-noir/90 space-y-3 sm:space-y-4">
+        <div class="space-y-1 text-xs">
+          <div class="flex justify-between text-mutedPlat">
+            <span>Subtotal (USD):</span>
+            <span id="cartSubtotalUSD" class="text-white font-medium">$0.00</span>
+          </div>
+          <div class="flex justify-between text-mutedPlat">
+            <span>Bolívares (Bs.):</span>
+            <span id="cartSubtotalBS" class="text-gold font-medium">Bs. 0.00</span>
+          </div>
+        </div>
+
+        <button onclick="openCheckoutModal()" id="btnProceedCheckout" class="w-full py-3.5 sm:py-4 bg-scarlet hover:bg-scarletDark text-white text-xs uppercase tracking-[0.2em] font-semibold transition-all shadow-scarlet-glow flex items-center justify-center gap-2">
+          <span>Procesar Pedido</span>
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DE CHECKOUT RESPONSIVE -->
+  <div id="checkoutModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden items-center justify-center p-3 sm:p-4">
+    <div class="glass-card bg-onyx max-w-xl w-full p-5 sm:p-8 max-h-[92vh] overflow-y-auto custom-scrollbar border border-white/10 rounded-xl sm:rounded-2xl">
+      <div class="flex items-center justify-between pb-3 sm:pb-4 border-b border-white/10 mb-4 sm:mb-6">
+        <div>
+          <h3 class="text-sm sm:text-base uppercase tracking-wider text-white font-semibold">Finalizar Pedido</h3>
+          <p class="text-[11px] sm:text-xs text-mutedPlat">Código exclusivo de orden para WhatsApp.</p>
+        </div>
+        <button onclick="closeCheckoutModal()" class="text-mutedPlat hover:text-white p-1">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form id="checkoutForm" onsubmit="handleCheckoutSubmit(event)" class="space-y-3.5 sm:space-y-4 text-xs">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+          <div>
+            <label class="block uppercase tracking-wider text-mutedPlat mb-1">Nombre Completo *</label>
+            <input type="text" id="chkName" required placeholder="Tu nombre" class="w-full bg-white/5 border border-white/10 px-3 py-2 sm:py-2.5 text-white focus:outline-none focus:border-scarlet">
+          </div>
+          <div>
+            <label class="block uppercase tracking-wider text-mutedPlat mb-1">WhatsApp / Teléfono *</label>
+            <input type="tel" id="chkPhone" required placeholder="0414 0000000" class="w-full bg-white/5 border border-white/10 px-3 py-2 sm:py-2.5 text-white focus:outline-none focus:border-scarlet">
+          </div>
+        </div>
+
+        <div>
+          <label class="block uppercase tracking-wider text-mutedPlat mb-1">Modalidad de Entrega *</label>
+          <select id="chkDelivery" onchange="toggleAddressField()" class="w-full bg-noir border border-white/10 px-3 py-2 sm:py-2.5 text-white focus:outline-none focus:border-scarlet">
+            <option value="Retiro en Atelier">Retiro personal en Atelier</option>
+            <option value="Delivery Local">Delivery local</option>
+            <option value="Envío Nacional (MRW/Tealca/Zoom)">Envío Nacional (MRW, Tealca, Zoom)</option>
+          </select>
+        </div>
+
+        <div id="addressContainer" class="hidden">
+          <label class="block uppercase tracking-wider text-mutedPlat mb-1">Dirección de Entrega / Agencia de Envíos *</label>
+          <input type="text" id="chkAddress" placeholder="Ciudad, Urbanización, Calle o Agencia receptora" class="w-full bg-white/5 border border-white/10 px-3 py-2 sm:py-2.5 text-white focus:outline-none focus:border-scarlet">
+        </div>
+
+        <div>
+          <label class="block uppercase tracking-wider text-mutedPlat mb-1">Método de Pago Seleccionado *</label>
+          <select id="chkPaymentMethod" onchange="updatePaymentDetailsDisplay()" class="w-full bg-noir border border-white/10 px-3 py-2 sm:py-2.5 text-white focus:outline-none focus:border-scarlet">
+            <option value="Pago Móvil">Pago Móvil (Bolívares)</option>
+            <option value="Zelle">Zelle (USD)</option>
+            <option value="Transferencia Bancaria">Transferencia Bancaria (Banesco / Mercantil)</option>
+            <option value="Efectivo Divisas">Efectivo Divisas (Al retirar en Atelier)</option>
+          </select>
+        </div>
+
+        <div id="paymentInstructionsBox" class="p-3 bg-white/5 border border-gold/30 rounded text-mutedPlat"></div>
+
+        <div>
+          <label class="block uppercase tracking-wider text-mutedPlat mb-1">Número de Referencia de Pago</label>
+          <input type="text" id="chkRef" placeholder="Ej. 128394 o Correo Zelle" class="w-full bg-white/5 border border-white/10 px-3 py-2 sm:py-2.5 text-white focus:outline-none focus:border-scarlet">
+        </div>
+
+        <div>
+          <label class="block uppercase tracking-wider text-mutedPlat mb-1">Notas especiales o especificaciones de talla</label>
+          <textarea id="chkNotes" rows="2" placeholder="Ej. Deseo manga un poco más larga, mido 1.68m..." class="w-full bg-white/5 border border-white/10 px-3 py-2 sm:py-2.5 text-white focus:outline-none focus:border-scarlet"></textarea>
+        </div>
+
+        <div class="pt-3 sm:pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div class="text-center sm:text-left">
+            <span class="text-[10px] uppercase text-mutedPlat block">Total Final:</span>
+            <span id="chkModalTotal" class="text-sm font-bold text-white">$0.00</span>
+          </div>
+          <button type="submit" class="w-full sm:w-auto px-6 py-3 bg-scarlet hover:bg-scarletDark text-white uppercase tracking-widest font-semibold shadow-scarlet-glow">
+            Enviar Pedido por WhatsApp
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT: LÃ“GICA DE NEGOCIO, CATÃLOGO Y RENDERIZADO 3D -->
+  <script>
+    const SUPABASE_URL = 'https://lqqthokgukirbbmrlzex.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_eUMOdFxViJmgnaw1rR9Axg_LaFWG0EE';
+    const supabaseClient = (window.supabase && window.supabase.createClient) 
+      ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) 
+      : null;
+
+    const WHATSAPP_PHONE = '584122820316';
+    let EXCHANGE_RATE = 54.20;
+    let cart = [];
+
+    let products = [
+      {
+        id: 'sc-01',
+        name: 'Vestido Noir Couture Sirena',
+        category: 'mujer',
+        priceUSD: 85.00,
+        stock: 4,
+        sizes: ['XS', 'S', 'M', 'L', 'A Medida'],
+        image: 'https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=800&q=80',
+        description: 'Satén pesado con drapeado artesanal y escote arquitectónico que enmarca la figura.'
+      },
+      {
+        id: 'sc-02',
+        name: 'Conjunto Scarlet Glam Fucsia',
+        category: 'mujer',
+        priceUSD: 75.00,
+        stock: 2,
+        sizes: ['XS', 'S', 'M', 'A Medida'],
+        image: 'https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=800&q=80',
+        description: 'Pantalón palazzo de tiro alto y top estructurado en el icónico tono Fucsia Scarlet.'
+      },
+                  {
+        id: 'sc-05',
+        name: 'Vestido Cocktail Terciopelo Escarlata',
+        category: 'mujer',
+        priceUSD: 95.00,
+        stock: 1,
+        sizes: ['S', 'M', 'L', 'A Medida'],
+        image: 'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=800&q=80',
+        description: 'Terciopelo elástico con ribetes cromados y apertura lateral sutil de gran sofisticación.'
+      },
+                  {
+        id: 'sc-08',
+        name: 'Confección Traje de Gala a Medida',
+        category: 'amedida',
+        priceUSD: 140.00,
+        stock: 6,
+        sizes: ['Toma de Medidas'],
+        image: 'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=800&q=80',
+        description: 'Servicio integral: patronaje exclusivo, selección de telas, pruebas y confección Haute Couture.'
+      }
+    ];
+
+    window.addEventListener('DOMContentLoaded', async () => {
+      lucide.createIcons();
+      loadCartFromStorage();
+      renderProducts('all');
+      updatePaymentDetailsDisplay();
+      initCard3DEffect();
+
+      // Cargar tasa y productos de Supabase
+      await initSupabaseData();
+    });
+
+    async function initSupabaseData() {
+      // 1. Obtener cotización oficial automática desde la API en tiempo real
+      await fetchAndUpdateExchangeRate();
+
+      if (!supabaseClient) return;
+
+      try {
+        // 2. Obtener Productos desde Supabase ordenados por SKU
+        const { data: dbProducts, error: prodErr } = await supabaseClient
+          .from('products')
+          .select('*')
+          .eq('is_active', true)
+          .order('sku', { ascending: true });
+
+        if (!prodErr && dbProducts && dbProducts.length > 0) {
+          products = dbProducts.map(p => ({
+            id: p.sku || p.id,
+            db_id: p.id,
+            name: p.name,
+            category: p.category,
+            priceUSD: parseFloat(p.price_usd),
+            stock: parseInt(p.stock, 10),
+            sizes: p.available_sizes || ['XS', 'S', 'M', 'L'],
+            image: p.image_url || 'scarlet-logo.jpg',
+            description: p.description || ''
+          }));
+          renderProducts();
+        }
+      } catch (err) {
+        console.warn('Operando en modo híbrido/local:', err);
+      }
+    }
+
+    // OBTENCIÓN AUTOMÁTICA DE TASA BCV Y RESPALDO DIARIO EN SUPABASE
+    async function fetchAndUpdateExchangeRate() {
+      let liveRate = null;
+
+      try {
+        // Consulta directa a la API de cotización oficial de Venezuela (BCV)
+        const response = await fetch('https://ve.dolarapi.com/v1/dolares/oficial');
+        if (response.ok) {
+          const apiData = await response.json();
+          if (apiData && apiData.promedio) {
+            liveRate = parseFloat(apiData.promedio);
+          }
+        }
+      } catch (apiErr) {
+        console.warn('No se pudo conectar a DolarApi en vivo, usando respaldo:', apiErr);
+      }
+
+      if (liveRate && liveRate > 0) {
+        EXCHANGE_RATE = liveRate;
+        const badge = document.getElementById('exchangeRateBadge');
+        if (badge) badge.innerText = `Bs. ${EXCHANGE_RATE.toFixed(2)} / USD`;
+
+        // Si Supabase está disponible, verificar si ya se guardó la tasa de hoy
+        if (supabaseClient) {
+          try {
+            const todayStr = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+            const { data: existingRates } = await supabaseClient
+              .from('exchange_rates')
+              .select('id, rate_usd_to_bs, created_at')
+              .gte('created_at', todayStr + 'T00:00:00.000Z')
+              .limit(1);
+
+            // Si aún no se ha guardado hoy o la tasa varió, registrarla en Supabase
+            if (!existingRates || existingRates.length === 0) {
+              await supabaseClient
+                .from('exchange_rates')
+                .insert([{
+                  rate_usd_to_bs: EXCHANGE_RATE,
+                  source: 'BCV Oficial (DolarApi Automático)'
+                }]);
+            }
+          } catch (dbRateErr) {
+            console.warn('Error verificando/guardando tasa en Supabase:', dbRateErr);
+          }
+        }
+      } else if (supabaseClient) {
+        // Fallback: Si la API externa fallara temporalmente, leer la última tasa guardada en Supabase
+        try {
+          const { data: rateData, error: rateErr } = await supabaseClient
+            .from('exchange_rates')
+            .select('rate_usd_to_bs')
+            .order('created_at', { ascending: false })
+            .limit(1);
+
+          if (!rateErr && rateData && rateData.length > 0) {
+            EXCHANGE_RATE = parseFloat(rateData[0].rate_usd_to_bs);
+            const badge = document.getElementById('exchangeRateBadge');
+            if (badge) badge.innerText = `Bs. ${EXCHANGE_RATE.toFixed(2)} / USD`;
+          }
+        } catch (fbErr) {
+          console.warn('Error en fallback de tasa:', fbErr);
+        }
+      }
+
+      // Re-renderizar productos con la nueva tasa
+      renderProducts();
+    }
+
+    // Menú móvil toggle
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      if (menu) {
+        menu.classList.toggle('hidden');
+      }
+    }
+
+    // EFECTO 3D REALISTA CON SOPORTE TÃCTIL Y MOVIMIENTO
+    function initCard3DEffect() {
+      const card = document.getElementById('hero3dCard');
+      const inner = document.getElementById('hero3dInner');
+      const glare = document.getElementById('glareLayer');
+      const shadow = document.getElementById('card3dShadow');
+      const logoImg = document.getElementById('heroLogoImg');
+
+      if (!card || !inner) return;
+
+      let bounds;
+      let mouseX = 0;
+      let mouseY = 0;
+      let currentX = 0;
+      let currentY = 0;
+      let isInteracting = false;
+
+      function updateBounds() {
+        bounds = card.getBoundingClientRect();
+      }
+
+      window.addEventListener('resize', updateBounds);
+      window.addEventListener('scroll', updateBounds);
+      updateBounds();
+
+      // Ratón
+      card.addEventListener('mouseenter', () => {
+        isInteracting = true;
+        updateBounds();
+        if (glare) glare.style.opacity = '1';
+      });
+
+      card.addEventListener('mouseleave', () => {
+        isInteracting = false;
+        mouseX = 0;
+        mouseY = 0;
+        if (glare) glare.style.opacity = '0';
+        if (shadow) shadow.style.transform = 'translate(0, 0) scale(1)';
+      });
+
+      card.addEventListener('mousemove', (e) => {
+        if (!bounds) updateBounds();
+        const x = e.clientX - bounds.left;
+        const y = e.clientY - bounds.top;
+
+        mouseX = (x / bounds.width) * 2 - 1;
+        mouseY = (y / bounds.height) * 2 - 1;
+
+        if (glare) {
+          const glareX = (x / bounds.width) * 100;
+          const glareY = (y / bounds.height) * 100;
+          glare.style.background = `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255,255,255,0.3) 0%, rgba(230,0,126,0.2) 35%, transparent 70%)`;
+        }
+      });
+
+      // Gestos Táctiles (Móviles / Tablets)
+      card.addEventListener('touchmove', (e) => {
+        if (e.touches.length > 0) {
+          isInteracting = true;
+          if (!bounds) updateBounds();
+          const touch = e.touches[0];
+          const x = touch.clientX - bounds.left;
+          const y = touch.clientY - bounds.top;
+
+          mouseX = (x / bounds.width) * 2 - 1;
+          mouseY = (y / bounds.height) * 2 - 1;
+          if (glare) glare.style.opacity = '0.7';
+        }
+      }, { passive: true });
+
+      card.addEventListener('touchend', () => {
+        isInteracting = false;
+        mouseX = 0;
+        mouseY = 0;
+        if (glare) glare.style.opacity = '0';
+      });
+
+      // Animación continua
+      function loop() {
+        const ease = 0.12;
+        currentX += (mouseX - currentX) * ease;
+        currentY += (mouseY - currentY) * ease;
+
+        const maxTilt = 20;
+        const rotateY = currentX * maxTilt;
+        const rotateX = -currentY * maxTilt;
+
+        inner.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(${isInteracting ? 1.03 : 1}, ${isInteracting ? 1.03 : 1}, 1)`;
+        
+        if (logoImg) {
+          logoImg.style.transform = `translate3d(${currentX * 10}px, ${currentY * 10}px, 20px) scale(${isInteracting ? 1.04 : 1})`;
+        }
+
+        if (shadow) {
+          const shadowX = -currentX * 20;
+          const shadowY = -currentY * 12;
+          shadow.style.transform = `translate(${shadowX}px, ${shadowY}px) scale(${isInteracting ? 1.12 : 1})`;
+        }
+
+        requestAnimationFrame(loop);
+      }
+      requestAnimationFrame(loop);
+    }
+
+    // CATÃLOGO Y RENDERIZADO RESPONSIVE
+    // Helper para calcular stock disponible en tiempo real descontando la bolsa
+    function getRemainingStock(productId) {
+      const product = products.find(p => p.id === productId);
+      if (!product) return 0;
+      const countInCart = cart
+        .filter(item => item.id === productId)
+        .reduce((sum, item) => sum + item.quantity, 0);
+      return Math.max(0, product.stock - countInCart);
+    }
+
+    // CATALOGO Y RENDERIZADO RESPONSIVE CON STOCK Y BLOQUEO AUTOMATICO
+    function renderProducts(filter) {
+      const currentCategory = filter || window.currentActiveFilter || 'all';
+      window.currentActiveFilter = currentCategory;
+
+      const grid = document.getElementById('productsGrid');
+      grid.innerHTML = '';
+
+      const filtered = currentCategory === 'all' 
+        ? products 
+        : products.filter(p => p.category === currentCategory);
+
+      filtered.forEach(p => {
+        const bsPrice = (p.priceUSD * EXCHANGE_RATE).toFixed(2);
+        const availableStock = getRemainingStock(p.id);
+        const isOutOfStock = availableStock <= 0;
+
+        // Badge de disponibilidad en tiempo real
+        let stockBadge = '';
+        if (p.stock === 0) {
+          stockBadge = `<span class="bg-red-950/85 border border-red-500/50 text-red-300 text-[10px] uppercase tracking-wider px-2.5 py-0.5 rounded-full flex items-center gap-1 font-semibold shadow-sm">
+            <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span> Agotado
+          </span>`;
+        } else if (availableStock === 0) {
+          stockBadge = `<span class="bg-amber-950/85 border border-amber-500/50 text-amber-300 text-[10px] uppercase tracking-wider px-2.5 py-0.5 rounded-full flex items-center gap-1 font-semibold shadow-sm">
+            <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span> Máx. en bolsa (${p.stock})
+          </span>`;
+        } else if (availableStock <= 2) {
+          stockBadge = `<span class="bg-amber-950/85 border border-amber-500/50 text-amber-300 text-[10px] uppercase tracking-wider px-2.5 py-0.5 rounded-full flex items-center gap-1 font-semibold shadow-sm animate-pulse">
+            <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span> ¡Últimas ${availableStock} pzas!
+          </span>`;
+        } else {
+          stockBadge = `<span class="bg-emerald-950/85 border border-emerald-500/50 text-emerald-300 text-[10px] uppercase tracking-wider px-2.5 py-0.5 rounded-full flex items-center gap-1 font-medium shadow-sm">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> ${availableStock} disponibles
+          </span>`;
+        }
+
+        const card = document.createElement('div');
+        card.className = `glass-card flex flex-col justify-between overflow-hidden group transition-all duration-300 rounded-xl sm:rounded-none relative ${isOutOfStock ? 'opacity-85' : ''}`;
+        card.innerHTML = `
+          <div class="relative overflow-hidden aspect-[3/4] bg-noir">
+            <img src="${p.image}" alt="${p.name}" loading="lazy" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700 opacity-90 group-hover:opacity-100 ${isOutOfStock ? 'grayscale-[30%]' : ''}">
+            <div class="absolute inset-0 bg-gradient-to-t from-noir via-transparent to-transparent opacity-80"></div>
+            
+            <!-- Badges superiores de categoría y disponibilidad de piezas -->
+            <div class="absolute top-3 inset-x-3 flex items-center justify-between gap-2 pointer-events-none z-10">
+              <span class="bg-noir/80 backdrop-blur-md px-2.5 py-1 text-[10px] uppercase tracking-widest text-champagne border border-white/10 rounded sm:rounded-none">
+                ${p.category}
+              </span>
+              <div class="backdrop-blur-md">
+                ${stockBadge}
+              </div>
+            </div>
+
+            ${isOutOfStock ? `
+              <div class="absolute inset-0 bg-black/60 backdrop-blur-[2px] flex items-center justify-center pointer-events-none z-20">
+                <span class="px-3.5 py-1.5 bg-noir/90 border border-red-500/40 text-red-400 text-xs uppercase tracking-[0.2em] font-semibold">
+                  ${p.stock === 0 ? 'Sin existencias' : 'Límite alcanzado'}
+                </span>
+              </div>
+            ` : ''}
+          </div>
+
+          <div class="p-4 sm:p-5 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="font-serif text-base sm:text-lg text-white font-medium mb-1 group-hover:text-scarlet transition-colors">${p.name}</h3>
+              <p class="text-xs text-mutedPlat line-clamp-2 mb-3 sm:mb-4 leading-relaxed">${p.description}</p>
+            </div>
+
+            <div>
+              <div class="mb-3">
+                <div class="flex items-center justify-between mb-1">
+                  <label class="text-[10px] uppercase tracking-wider text-mutedPlat block">Talla:</label>
+                  <span class="text-[10px] text-white/50">Total pzas: ${p.stock}</span>
+                </div>
+                <div class="flex flex-wrap gap-1.5" id="sizes-${p.id}">
+                  ${p.sizes.map((s, idx) => `
+                    <button type="button" onclick="selectSize('${p.id}', '${s}')" ${isOutOfStock ? 'disabled' : ''} class="size-btn-${p.id} px-2.5 py-1 text-[10px] border border-white/15 text-white/80 hover:border-scarlet rounded sm:rounded-none ${idx === 0 ? 'border-scarlet bg-scarlet/20 text-white' : ''} ${isOutOfStock ? 'opacity-40 cursor-not-allowed' : ''}">
+                      ${s}
+                    </button>
+                  `).join('')}
+                </div>
+              </div>
+
+              <div class="flex items-baseline justify-between pt-2.5 border-t border-white/5 mb-3 sm:mb-4">
+                <div>
+                  <span class="text-base font-semibold text-white">$${p.priceUSD.toFixed(2)}</span>
+                  <span class="text-[11px] text-gold block">Bs. ${bsPrice}</span>
+                </div>
+                <div class="text-right">
+                  <span class="text-[10px] uppercase tracking-wider ${isOutOfStock ? 'text-red-400 font-semibold' : 'text-emerald-400 font-medium'} block">
+                    ${isOutOfStock ? (p.stock === 0 ? 'Agotado' : 'Sin cupo') : `${availableStock} disp.`}
+                  </span>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-2 gap-2">
+                ${isOutOfStock ? `
+                  <button disabled class="w-full py-2.5 bg-white/5 border border-white/10 text-white/40 text-[11px] uppercase tracking-wider font-semibold rounded sm:rounded-none cursor-not-allowed flex items-center justify-center gap-1.5">
+                    <i data-lucide="ban" class="w-3.5 h-3.5 text-red-400"></i> Agotado
+                  </button>
+                ` : `
+                  <button onclick="addToCart('${p.id}')" class="w-full py-2.5 bg-scarlet hover:bg-scarletDark text-white text-[11px] uppercase tracking-wider font-semibold transition-all flex items-center justify-center gap-1.5 shadow-scarlet-glow active:scale-95 rounded sm:rounded-none">
+                    <i data-lucide="plus" class="w-3.5 h-3.5"></i> Bolsa
+                  </button>
+                `}
+                <a href="https://wa.me/${WHATSAPP_PHONE}?text=Hola%20Scarlet%2C%20me%20interesa%20la%20prenda%20${encodeURIComponent(p.name)}%20($${p.priceUSD})%20${isOutOfStock ? '%C2%BFCu%C3%A1ndo%20habr%C3%A1%20m%C3%A1s%20stock%20o%20confecci%C3%B3n%20a%20medida%3F' : '%C2%BFEst%C3%A1%20disponible%3F'}" target="_blank" class="w-full py-2.5 bg-white/5 hover:bg-white/10 border border-white/15 text-white text-[11px] uppercase tracking-wider transition-all flex items-center justify-center gap-1 active:scale-95 rounded sm:rounded-none">
+                  <i data-lucide="message-circle" class="w-3.5 h-3.5 text-scarlet"></i> WhatsApp
+                </a>
+              </div>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+
+      lucide.createIcons();
+    }
+
+    function filterProducts(cat) {
+      document.querySelectorAll('.cat-btn').forEach(btn => {
+        btn.classList.remove('active', 'border-scarlet', 'bg-scarlet', 'text-white');
+        btn.classList.add('border-white/10', 'text-mutedPlat');
+      });
+      event.target.classList.add('active', 'border-scarlet', 'bg-scarlet', 'text-white');
+      event.target.classList.remove('border-white/10', 'text-mutedPlat');
+      renderProducts(cat);
+    }
+
+    let selectedSizesMap = {};
+    function selectSize(productId, size) {
+      selectedSizesMap[productId] = size;
+      const buttons = document.querySelectorAll(`.size-btn-${productId}`);
+      buttons.forEach(b => {
+        b.classList.remove('border-scarlet', 'bg-scarlet/20', 'text-white');
+        b.classList.add('border-white/15', 'text-white/80');
+        if (b.innerText.trim() === size) {
+          b.classList.add('border-scarlet', 'bg-scarlet/20', 'text-white');
+          b.classList.remove('border-white/15', 'text-white/80');
+        }
+      });
+    }
+
+    // CARRITO Y STORAGE CON VALIDACIÓN ESTRICTA DE STOCK
+    function addToCart(productId) {
+      const product = products.find(p => p.id === productId);
+      if (!product) return;
+
+      // Verificar si hay stock disponible para agregar
+      const remainingStock = getRemainingStock(productId);
+      if (remainingStock <= 0) {
+        alert(`Disculpa, no quedan más piezas disponibles de "${product.name}".`);
+        renderProducts();
+        return;
+      }
+
+      const chosenSize = selectedSizesMap[productId] || product.sizes[0];
+      const cartKey = `${product.id}-${chosenSize}`;
+      const existing = cart.find(item => item.cartKey === cartKey);
+
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        cart.push({
+          cartKey,
+          id: product.id,
+          name: product.name,
+          priceUSD: product.priceUSD,
+          size: chosenSize,
+          image: product.image,
+          quantity: 1
+        });
+      }
+
+      saveCartToStorage();
+      updateCartUI();
+      renderProducts(); // Re-renderizar catálogo para actualizar botones y badges de piezas disponibles
+      openCartDrawer();
+    }
+
+    function changeQuantity(cartKey, delta) {
+      const item = cart.find(i => i.cartKey === cartKey);
+      if (!item) return;
+
+      if (delta > 0) {
+        // Verificar stock antes de sumar
+        const remainingStock = getRemainingStock(item.id);
+        if (remainingStock <= 0) {
+          alert(`Has alcanzado el límite máximo de piezas en existencia para este artículo.`);
+          return;
+        }
+      }
+
+      item.quantity += delta;
+      if (item.quantity <= 0) {
+        cart = cart.filter(i => i.cartKey !== cartKey);
+      }
+      saveCartToStorage();
+      updateCartUI();
+      renderProducts(); // Actualizar disponibilidad en la tienda
+    }
+
+    function removeItemFromCart(cartKey) {
+      cart = cart.filter(i => i.cartKey !== cartKey);
+      saveCartToStorage();
+      updateCartUI();
+      renderProducts();
+    }
+
+    function saveCartToStorage() {
+      localStorage.setItem('scarlet_cart', JSON.stringify(cart));
+    }
+
+    function loadCartFromStorage() {
+      const stored = localStorage.getItem('scarlet_cart');
+      if (stored) {
+        try {
+          cart = JSON.parse(stored);
+        } catch(e) {
+          cart = [];
+        }
+      }
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      const badge = document.getElementById('cartCountBadge');
+      const badgeMobile = document.getElementById('cartCountMobile');
+      const list = document.getElementById('cartItemsList');
+      const subtotalUSD = document.getElementById('cartSubtotalUSD');
+      const subtotalBS = document.getElementById('cartSubtotalBS');
+
+      const totalItems = cart.reduce((acc, i) => acc + i.quantity, 0);
+      if (badge) badge.innerText = totalItems;
+      if (badgeMobile) badgeMobile.innerText = totalItems;
+
+      if (cart.length === 0) {
+        list.innerHTML = `
+          <div class="h-64 flex flex-col items-center justify-center text-center text-mutedPlat">
+            <i data-lucide="shopping-bag" class="w-10 h-10 text-white/20 mb-3"></i>
+            <p class="text-xs uppercase tracking-wider">Tu bolsa está vacía</p>
+            <p class="text-[11px] text-white/40 mt-1">Descubre piezas únicas en nuestra colección.</p>
+          </div>
+        `;
+        subtotalUSD.innerText = '$0.00';
+        subtotalBS.innerText = 'Bs. 0.00';
+        lucide.createIcons();
+        return;
+      }
+
+      let totalUSD = 0;
+      list.innerHTML = '';
+
+      cart.forEach(item => {
+        const itemTotal = item.priceUSD * item.quantity;
+        totalUSD += itemTotal;
+        const div = document.createElement('div');
+        div.className = 'flex gap-3 p-3 bg-white/5 border border-white/5 rounded relative group';
+        div.innerHTML = `
+          <img src="${item.image}" class="w-14 sm:w-16 h-18 sm:h-20 object-cover object-top rounded border border-white/10 shrink-0">
+          <div class="flex-1 flex flex-col justify-between text-xs">
+            <div>
+              <div class="flex items-start justify-between gap-2">
+                <h4 class="font-medium text-white leading-tight">${item.name}</h4>
+                <button onclick="removeItemFromCart('${item.cartKey}')" title="Eliminar prenda" class="text-mutedPlat hover:text-red-400 p-1 -mr-1 -mt-1 transition-colors" aria-label="Eliminar producto">
+                  <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+              <span class="text-[10px] text-scarlet block mt-0.5">Talla: ${item.size}</span>
+              <span class="text-[11px] text-mutedPlat">$${item.priceUSD.toFixed(2)} c/u</span>
+            </div>
+            <div class="flex items-center justify-between mt-2">
+              <div class="flex items-center border border-white/20 rounded overflow-hidden">
+                <button onclick="changeQuantity('${item.cartKey}', -1)" title="Reducir cantidad" class="px-2 py-0.5 text-mutedPlat hover:text-white hover:bg-white/10 transition-colors">-</button>
+                <span class="px-2 text-white font-semibold text-[11px] min-w-[20px] text-center">${item.quantity}</span>
+                <button onclick="changeQuantity('${item.cartKey}', 1)" title="Agregar una unidad más" class="px-2 py-0.5 text-mutedPlat hover:text-white hover:bg-white/10 transition-colors">+</button>
+              </div>
+              <span class="font-semibold text-white">$${itemTotal.toFixed(2)}</span>
+            </div>
+          </div>
+        `;
+        list.appendChild(div);
+      });
+
+      const totalBS = (totalUSD * EXCHANGE_RATE).toFixed(2);
+      subtotalUSD.innerText = `$${totalUSD.toFixed(2)}`;
+      subtotalBS.innerText = `Bs. ${totalBS}`;
+      lucide.createIcons();
+    }
+
+    function toggleCartDrawer() {
+      const panel = document.getElementById('cartPanel');
+      if (panel.classList.contains('translate-x-full')) {
+        openCartDrawer();
+      } else {
+        closeCartDrawer();
+      }
+    }
+
+    function openCartDrawer() {
+      const drawer = document.getElementById('cartDrawer');
+      const backdrop = document.getElementById('cartBackdrop');
+      const panel = document.getElementById('cartPanel');
+      drawer.classList.remove('pointer-events-none');
+      backdrop.classList.remove('opacity-0');
+      backdrop.classList.add('opacity-100');
+      panel.classList.remove('translate-x-full');
+    }
+
+    function closeCartDrawer() {
+      const drawer = document.getElementById('cartDrawer');
+      const backdrop = document.getElementById('cartBackdrop');
+      const panel = document.getElementById('cartPanel');
+      backdrop.classList.add('opacity-0');
+      backdrop.classList.remove('opacity-100');
+      panel.classList.add('translate-x-full');
+      setTimeout(() => drawer.classList.add('pointer-events-none'), 300);
+    }
+
+    function openCheckoutModal() {
+      if (cart.length === 0) {
+        alert('Por favor agrega prendas a tu bolsa antes de procesar.');
+        return;
+      }
+      closeCartDrawer();
+      const totalUSD = cart.reduce((acc, i) => acc + (i.priceUSD * i.quantity), 0);
+      const totalBS = (totalUSD * EXCHANGE_RATE).toFixed(2);
+      document.getElementById('chkModalTotal').innerText = `$${totalUSD.toFixed(2)} (Bs. ${totalBS})`;
+      document.getElementById('checkoutModal').classList.remove('hidden');
+      document.getElementById('checkoutModal').classList.add('flex');
+    }
+
+    function closeCheckoutModal() {
+      document.getElementById('checkoutModal').classList.add('hidden');
+      document.getElementById('checkoutModal').classList.remove('flex');
+    }
+
+    function toggleAddressField() {
+      const delivery = document.getElementById('chkDelivery').value;
+      const addrBox = document.getElementById('addressContainer');
+      if (delivery.includes('Retiro')) {
+        addrBox.classList.add('hidden');
+      } else {
+        addrBox.classList.remove('hidden');
+      }
+    }
+
+    function updatePaymentDetailsDisplay() {
+      const method = document.getElementById('chkPaymentMethod').value;
+      const box = document.getElementById('paymentInstructionsBox');
+      
+      if (method === 'Pago Móvil') {
+        box.innerHTML = `
+          <strong class="text-white block mb-1">Datos Pago Móvil:</strong>
+          <span>Banco: Banesco (0134) | CI: V-19.876.543 | Tel: 0412-2820316</span>
+          <span class="block text-[11px] text-gold mt-1">Calculado a tasa oficial: Bs. ${EXCHANGE_RATE} / USD</span>
+        `;
+      } else if (method === 'Zelle') {
+        box.innerHTML = `
+          <strong class="text-white block mb-1">Datos Zelle:</strong>
+          <span>Correo: pagos@creacionesscarlet.com | Titular: Creaciones Scarlet C.A.</span>
+        `;
+      } else if (method === 'Transferencia Bancaria') {
+        box.innerHTML = `
+          <strong class="text-white block mb-1">Transferencia en Bolívares:</strong>
+          <span>Banesco Cta Corriente: 0134-0000-00-0000000000 | RIF: J-50123456-7</span>
+        `;
+      } else {
+        box.innerHTML = `
+          <strong class="text-white block mb-1">Efectivo en Divisas:</strong>
+          <span>Pago directo en billetes en buen estado al momento de tu entrega o retiro.</span>
+        `;
+      }
+    }
+
+    async function handleCheckoutSubmit(e) {
+      e.preventDefault();
+      const code = 'SC-' + Math.floor(1000 + Math.random() * 9000);
+      const name = document.getElementById('chkName').value;
+      const id = 'N/A';
+      const phone = document.getElementById('chkPhone').value;
+      const delivery = document.getElementById('chkDelivery').value;
+      const address = document.getElementById('chkAddress')?.value || 'N/A';
+      const payment = document.getElementById('chkPaymentMethod').value;
+      const ref = document.getElementById('chkRef').value || 'Por enviar comprobante';
+      const notes = document.getElementById('chkNotes').value || 'Sin notas adicionales';
+
+      const totalUSD = cart.reduce((acc, i) => acc + (i.priceUSD * i.quantity), 0);
+      const totalBS = (totalUSD * EXCHANGE_RATE).toFixed(2);
+
+      // 1. Guardar en Supabase si está disponible
+      if (supabaseClient) {
+        try {
+          // A. Registrar ventas en la tabla 'sales' primero (para descontar inventario de inmediato)
+          const salesPayload = cart.map(item => ({
+            order_code: code,
+            product_sku: item.id,
+            product_name: item.name,
+            size: item.size,
+            quantity: item.quantity,
+            unit_price_usd: item.priceUSD,
+            total_sale_usd: item.priceUSD * item.quantity,
+            customer_name: name,
+            customer_phone: phone
+          }));
+          const { error: saleErr } = await supabaseClient.from('sales').insert(salesPayload);
+          if (saleErr) console.warn('Error en sales:', saleErr);
+
+          // B. Registrar pedido general en 'orders'
+          const { data: orderData, error: orderErr } = await supabaseClient
+            .from('orders')
+            .insert([{
+              order_code: code,
+              customer_name: name,
+              customer_id_doc: id,
+              customer_phone: phone,
+              delivery_type: delivery,
+              delivery_address: address,
+              total_usd: totalUSD,
+              applied_exchange_rate: EXCHANGE_RATE,
+              payment_method: payment,
+              payment_reference: ref,
+              notes: notes,
+              status: 'Pendiente de verificación'
+            }])
+            .select();
+
+          if (!orderErr && orderData && orderData.length > 0) {
+            const orderId = orderData[0].id;
+            const orderItemsPayload = cart.map(item => ({
+              order_id: orderId,
+              product_name: item.name,
+              size: item.size,
+              quantity: item.quantity,
+              unit_price_usd: item.priceUSD,
+              subtotal_usd: item.priceUSD * item.quantity
+            }));
+            await supabaseClient.from('order_items').insert(orderItemsPayload);
+          } else if (orderErr) {
+            console.warn('Error en orders:', orderErr);
+          }
+
+          // C. Refrescar catálogo con stock actualizado desde la base de datos
+          await initSupabaseData();
+        } catch (dbErr) {
+          console.warn('Error guardando en Supabase:', dbErr);
+        }
+      }
+
+      let itemsText = cart.map(i => `• ${i.quantity}x ${i.name} (Talla ${i.size}) - $${(i.priceUSD * i.quantity).toFixed(2)}`).join('\n');
+
+      const msg = `👑 *NUEVO PEDIDO ${code}* 👑\n` +
+                  `*Cliente:* ${name}\n` +
+                  `*Teléfono:* ${phone}\n` +
+                  `*Entrega:* ${delivery} ${address !== 'N/A' ? '(' + address + ')' : ''}\n\n` +
+                  `*PRENDAS SELECCIONADAS:*\n${itemsText}\n\n` +
+                  `*TOTAL:* $${totalUSD.toFixed(2)} (Bs. ${totalBS} a tasa ${EXCHANGE_RATE})\n` +
+                  `*Pago:* ${payment} | Ref: ${ref}\n` +
+                  `*Notas de Confección:* ${notes}\n\n` +
+                  `_Generado desde la tienda virtual de Creaciones Scarlet._`;
+
+      const whatsappUrl = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(msg)}`;
+
+      cart = [];
+      saveCartToStorage();
+      updateCartUI();
+      renderProducts();
+      closeCheckoutModal();
+
+      window.open(whatsappUrl, '_blank');
+    }
+
+    function selectMeasurement(type) {
+      const box = document.getElementById('measureDetail');
+      if (type === 'Busto') {
+        box.innerHTML = `
+          <strong class="text-scarlet block text-xs">Medida de Busto / Pecho:</strong>
+          <span class="text-[11px] text-white/90">Pasa la cinta métrica por la parte más prominente del busto en posición horizontal, sin apretar.</span>
+        `;
+      } else if (type === 'Cintura') {
+        box.innerHTML = `
+          <strong class="text-gold block text-xs">Medida de Cintura:</strong>
+          <span class="text-[11px] text-white/90">Mide alrededor de la parte más estrecha del torso (aproximadamente 2 dedos por encima del ombligo).</span>
+        `;
+      } else if (type === 'Cadera') {
+        box.innerHTML = `
+          <strong class="text-scarletGlow block text-xs">Medida de Cadera:</strong>
+          <span class="text-[11px] text-white/90">Pasa la cinta alrededor de la zona más ancha de los glúteos manteniendo los pies juntos.</span>
+        `;
+      }
+    }
+
+    function openAppointmentModal() {
+      const elem = document.getElementById('cita');
+      if (elem) elem.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    async function handleAppointmentSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('aptName').value;
+      const phone = document.getElementById('aptPhone').value;
+      const service = document.getElementById('aptService').value;
+      const date = document.getElementById('aptDate').value;
+      const notes = document.getElementById('aptNotes').value || 'Ninguna';
+
+      // Guardar cita en Supabase si está disponible
+      if (supabaseClient) {
+        try {
+          await supabaseClient
+            .from('appointments')
+            .insert([{
+              customer_name: name,
+              customer_phone: phone,
+              service_type: service,
+              scheduled_date: date,
+              notes: notes,
+              status: 'Pendiente por confirmar'
+            }]);
+        } catch (dbErr) {
+          console.warn('Error guardando cita en Supabase:', dbErr);
+        }
+      }
+
+      const msg = `âœ‚ï¸ *SOLICITUD DE CITA ATELIER* âœ‚ï¸\n` +
+                  `*Cliente:* ${name}\n` +
+                  `*Teléfono:* ${phone}\n` +
+                  `*Servicio:* ${service}\n` +
+                  `*Fecha Deseada:* ${date}\n` +
+                  `*Detalles:* ${notes}\n\n` +
+                  `_Hola Scarlet, deseo confirmar la disponibilidad para esta asesoría._`;
+
+      window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(msg)}`, '_blank');
+      e.target.reset();
+    }
+  </script>
+</body>
+</html>

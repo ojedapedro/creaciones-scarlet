@@ -1,0 +1,122 @@
+Actúa como un equipo de tres expertos trabajando en conjunto: (1) experto en moda y diseño, (2) experto en marketing digital y (3) desarrollador fullstack senior. Construye la landing page con tienda y carrito de "Creaciones Scarlet". Entrega código funcional, completo y listo para desplegar. Responde en español.
+
+## 1. Negocio
+- Marca: Creaciones Scarlet (tienda virtual y taller de costura en Venezuela).
+- Público: mujeres (principal), niñas y niños, y hombres de estilo casual (en menor proporción).
+- Productos: ropa casual lista para comprar, más servicio de costura a medida (toma de medidas corporales, arreglos, vestidos para eventos) con asesoría por WhatsApp.
+- Objetivo principal: facilitar la compra y la reserva del servicio de costura. Meta secundaria: que cada pedido llegue por WhatsApp a la gerente de ventas o analista.
+- Propuesta de valor: "Ropa con actitud, hecha a tu medida, con asesoría personal por WhatsApp."
+
+## 2. Identidad visual (basada en el logo)
+El logo es un fucsia glossy 3D sobre fondo negro: labios cromados y la palabra "Scarlet" en tipografía script con brillo neón.
+
+Paleta:
+- Negro carbón #0B0D10 (hero, footer, secciones de marca)
+- Fucsia Scarlet #E6007E (color principal y CTAs)
+- Rosa claro #FF8AD0 (brillos y degradados)
+- Blanco rosado #FFF5FA (fondo del catálogo, para que las prendas se vean fieles)
+- Ciruela oscuro #2A0A1E (texto sobre fondo claro)
+- Plata cromo #D8D8E0 (detalles)
+
+Tipografía: script (Great Vibes o similar) solo para el nombre y acentos; Outfit o Sora para títulos; DM Sans para texto. Evitar serif clásica.
+
+Criterio: hero y secciones de marca en oscuro con brillo fucsia; catálogo y fotos de prendas sobre fondo claro.
+Tono por público: mujer = glam e intenso; niños = más luminoso, formas redondeadas, sin el motivo de labios; hombre = sobrio, negro y plata con fucsia en detalles.
+Fotografía: luz natural, detalles de costuras y telas, y fotos del proceso (cinta métrica, patrones, máquina de coser).
+
+## 3. Stack técnico
+- Next.js (App Router) + TypeScript + Tailwind CSS, instalable como PWA.
+- Estado del carrito: Zustand con persistencia local.
+- Animación: Framer Motion y GSAP ScrollTrigger.
+- 3D: React Three Fiber + drei.
+- Base de datos: Supabase (PostgreSQL). Hosting: Vercel.
+- Panel admin simple y protegido con login para: productos y stock, tasa del día, estado de pedidos y citas.
+- Prioridad: rendimiento en conexiones móviles lentas (LCP < 2.5 s, CLS < 0.1, Lighthouse móvil > 90, imágenes AVIF/WebP, mobile-first).
+
+## 4. Animaciones 3D y 2D
+1. Hero: labios fucsia en 3D con material cromado y reflejos, rotación suave que sigue el cursor (o el giroscopio en móvil), con el script "Scarlet" al frente con brillo neón.
+2. Respaldo: video corto en bucle (WebM/MP4 < 1 MB) o imagen estática para gama baja y conexión lenta.
+3. Maniquí interactivo en la guía de medidas (resalta busto, cintura, cadera).
+4. Tarjetas de producto con efecto tilt al hover y revelado al hacer scroll.
+5. Cinta métrica SVG que se dibuja con el scroll.
+Reglas: modelos 3D < 2 MB, carga diferida del canvas, respetar `prefers-reduced-motion`, 3D solo en hero y medidas.
+
+## 5. Estructura de la página (en orden)
+1. Header fijo: logo, menú (Colección, A medida, Medidas, Agenda, FAQ), ícono de carrito con contador.
+2. Hero oscuro con 3D, titular emocional y 2 CTAs: "Ver colección" y "Agendar medidas".
+3. Barra de confianza: Hecho a tu medida · Asesoría por WhatsApp · Pago Móvil, Zelle y más · Retiro o delivery.
+4. Categorías: Mujer, Niños, Hombre casual (más "A medida").
+5. Colección destacada con filtros, selector de talla, "Agregar al carrito" y "Consultar por WhatsApp".
+6. Servicio a medida en 4 pasos: cuéntanos qué buscas, toma de medidas, confección y pruebas, entrega.
+7. Guía de medidas: maniquí, tabla de tallas (adultos por cm; niños por edad y estatura) y guía descargable en PDF.
+8. Reserva de cita: nombre, tipo de servicio, fecha y hora, mensaje; se guarda en la base de datos y abre WhatsApp.
+9. Métodos de pago y envío.
+10. Lookbook/galería y testimonios con foto.
+11. Sobre Scarlet (historia de la marca).
+12. FAQ: tiempos, precios, cómo medirse, cambios y ajustes, envíos.
+13. CTA final y footer (redes, horario, ubicación, políticas).
+14. Botón flotante de WhatsApp en todas las páginas.
+Páginas extra: carrito (drawer lateral), checkout, confirmación de pedido y seguimiento por código.
+
+## 6. Precios y tasa de cambio
+- Precios base en USD, con equivalente en Bs. calculado con la tasa del día.
+- La tasa se actualiza manualmente desde el panel admin y se guarda en la tabla `exchange_rates`. Guardar en cada pedido la tasa usada. (Opcional: lectura automática del BCV.)
+
+## 7. Flujo de compra
+1. Agregar prendas o servicios al carrito (talla, cantidad, notas).
+2. Checkout: nombre, cédula, teléfono, retiro en tienda o delivery (con dirección y zona), método de pago.
+3. Métodos de pago, mostrando los datos según la elección:
+   - Pago Móvil: banco, teléfono y cédula/RIF, con monto en Bs. a la tasa del día.
+   - Transferencia: banco, cuenta y titular.
+   - Zelle: correo y titular, con monto en USD.
+   - Efectivo: al retirar o recibir (billete exacto si aplica).
+4. Campo para el número de referencia del pago y subida opcional de la captura.
+5. Guardar el pedido en la base de datos con código SC-0001, SC-0002… y estado "Pendiente de verificación".
+6. Abrir WhatsApp con el resumen del pedido hacia el número de ventas.
+
+Número de WhatsApp de ventas: +58 414-4415403 (formato wa.me: 584144415403). Debe ser una variable de entorno o configuración editable, y permitir repartir pedidos por turnos entre varias asesoras.
+
+Formato del mensaje:
+🛍️ NUEVO PEDIDO SC-0123
+Cliente: [nombre] · [cédula] · [teléfono]
+Entrega: [Retiro/Delivery · zona]
+[cantidad]x [producto] ([talla]) — $[precio]
+Total: $[total] (Bs. [monto] a tasa [tasa])
+Pago: [método] · Ref. [número]
+Notas: [texto]
+
+Limitación de WhatsApp: el enlace wa.me deja el mensaje listo pero el cliente debe presionar "Enviar". Por eso:
+- Fase 1: guardar siempre el pedido en la base de datos primero, y abrir wa.me con el resumen.
+- Fase 2: notificación automática al equipo (correo, Telegram o WhatsApp Business Cloud API).
+Mensajes prellenados por contexto: hero ("Hola Scarlet, quiero asesoría para una prenda a medida."), producto ("Hola, me interesa [producto]. ¿Está disponible en talla __?") y cita ("Hola, quiero agendar toma de medidas para el [fecha/hora].").
+
+## 8. Modelo de datos
+- products: nombre, categoría, descripción, precio USD, tallas, imágenes, stock, activo.
+- orders: código, cliente, cédula, teléfono, entrega, dirección, total USD, tasa usada, método de pago, referencia, estado, notas.
+- order_items: pedido, producto, talla, cantidad, precio.
+- exchange_rates: fecha y tasa.
+- appointments: cliente, WhatsApp, tipo de servicio, fecha, estado.
+- measurements: cliente, busto, cintura, cadera, hombro, largo, etc.
+
+## 9. Seguridad y calidad
+- Recalcular precios y totales en el servidor; nunca confiar en los del navegador.
+- Validar formularios (cliente y servidor), limitar envíos por IP y anti-spam.
+- No guardar datos bancarios del cliente, solo la referencia del pago.
+- Row Level Security en Supabase; panel admin con autenticación.
+- Accesibilidad: contraste AA, navegación por teclado, `alt` en imágenes.
+- SEO: metadatos, Open Graph, datos estructurados (Product, LocalBusiness), sitemap, y preparar Google Business Profile.
+
+## 10. Analítica y marketing
+- GA4 + Meta Pixel (y API de conversiones) con eventos: view_product, add_to_cart, begin_checkout, order_sent_whatsapp, click_whatsapp, booking_submit. Parámetros UTM por canal.
+- KPIs: clics a WhatsApp, pedidos enviados por cada 100 visitas, reservas de cita, costo por conversación.
+- CTA primario repetido en cada sección ("Pedir por WhatsApp" / "Agendar medidas"); secundario "Ver colección".
+- Elementos de conversión: guía gratuita de medidas (a cambio del WhatsApp), oferta de lanzamiento (primera asesoría gratis), cupos de confección del mes, testimonios, garantía de ajuste.
+- Canales: Instagram y TikTok (Reels del proceso); lista de difusión por WhatsApp Business.
+
+## 11. Entregables esperados
+1. Estructura del proyecto y archivos completos.
+2. Esquema SQL de Supabase con políticas de seguridad.
+3. Componentes: Hero 3D (con respaldo), catálogo, carrito, checkout, reserva, panel admin.
+4. Instrucciones de instalación, variables de entorno y despliegue en Vercel.
+5. Lista de contenidos que debo aportar (fotos, logo en PNG/SVG transparente, datos de pago reales, catálogo y precios).
+Trabaja por fases: primero estructura y diseño, luego carrito y checkout, luego admin y analítica. Usa datos de ejemplo marcados como "(por definir)" donde falte información, y señala cada suposición que hagas.
